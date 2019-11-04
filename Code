@@ -54,7 +54,16 @@ tags <- gsub("''", "", tags) ##remove ''
 tags <- tags %>% str_replace_all("\\[|\\]", "") ##remove [ ]
 tags <- print(tags, quote = F) ##remove " "
 
-##Create UserID column and fill it with random number of users##
+##Feature engineering
+##154640 users have given 1 review only, the remaining 361098 users have on average review count is 10
+
+##visualize frequency of users and reviews
+table(dat$Total_Number_of_Reviews_Reviewer_Has_Given)
+
+##greater than 1
+table(subset(dat$Total_Number_of_Reviews_Reviewer_Has_Given, dat$Total_Number_of_Reviews_Reviewer_Has_Given>1))
+
+##Create UserID column and fill it with random number of users. This will enable the Imtem Recommender engine.
 
 table(dat$Total_Number_of_Reviews_Reviewer_Has_Given)
 users <- seq(from=1, to=192031, length.out = 192031)
@@ -67,12 +76,3 @@ View(dat)
 
 ###Export DF to CSV###
 write.csv(dat,"C:/Data/Hotel Recommender//FileName.csv", row.names = FALSE)
-
-##visualize frequency of users and reviews
-table(dat$Total_Number_of_Reviews_Reviewer_Has_Given)
-
-##greater than 1
-table(subset(dat$Total_Number_of_Reviews_Reviewer_Has_Given, dat$Total_Number_of_Reviews_Reviewer_Has_Given>1))
-
-## 154640 users have given 1 review only
-##from the remaining 361098, the average review count is 10
